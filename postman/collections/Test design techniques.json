@@ -1,0 +1,317 @@
+{
+	"info": {
+		"_postman_id": "05bf309f-ba73-41f3-a272-d2acfbf64797",
+		"name": "Test design techniques",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "18927542-05bf309f-ba73-41f3-a272-d2acfbf64797"
+	},
+	"item": [
+		{
+			"name": "Happy path",
+			"item": [
+				{
+					"name": "Create task 200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "36d98505-d41b-476c-9601-26319476631f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Answer field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.answer).to.eql(\"My answer1\");\r",
+									"});\r",
+									"pm.test(\"Connection header\", function () {\r",
+									"    pm.response.to.have.header(\"Connection\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "f074583a-a35b-4754-ba93-f92616571d9d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxNjY3NjEyLCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTU4MTIxMn0.FGETarZKar1ze1uuggr4hgMxaMK0sTOmBJt8P4JEJk2_IQ8eU2nIST-tGYyBpdOyLJOZzf2IKQqV8MRLZcYzeA",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"{{text}}\",\r\n  \"answer\": \"{{answer}}\",\r\n  \"title\": \"{{title}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}tasks",
+							"host": [
+								"{{url}}tasks"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "4c40a028-fee4-4a7b-8d02-daa87c71a9e4"
+		},
+		{
+			"name": "Sad PAth",
+			"item": [
+				{
+					"name": "Create task 500",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9b38dc74-f292-467d-8659-596328e9c782",
+								"exec": [
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});\r",
+									"pm.test(\"Answer field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.answer).to.eql(\"My answer1\");\r",
+									"});\r",
+									"pm.test(\"Connection header\", function () {\r",
+									"    pm.response.to.have.header(\"Connection\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "fe83ffe8-a657-4b72-abfe-b3bb0fec8e2d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxNjY3NjEyLCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTU4MTIxMn0.FGETarZKar1ze1uuggr4hgMxaMK0sTOmBJt8P4JEJk2_IQ8eU2nIST-tGYyBpdOyLJOZzf2IKQqV8MRLZcYzeA"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"answer\": \"{{answer}}\",\r\n  \"title\": \"{{title}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}tasks",
+							"host": [
+								"{{url}}tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create task 400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fad8967-6b07-4eb0-9a36-17929b5042ce",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Answer field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.answer).to.eql(\"My answer1\");\r",
+									"});\r",
+									"pm.test(\"Connection header\", function () {\r",
+									"    pm.response.to.have.header(\"Connection\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "022a4106-27c0-4d16-a8ed-4655a9e7c19c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxNDc4MDc4LCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTM5MTY3OH0.gq394VKYvMMmffFEyL6hGoicQLbMSowXJtsPzuPm4b3Sux8uO4A2Dp-RC_n--pcnVvYJnqApC08BquTAn4VKQQ"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"{{text}}\",\r\n  \"answer\": {{answer}}\",\r\n  \"title\": \"{{title}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}tasks",
+							"host": [
+								"{{url}}tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create task 415",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fe5c0143-5caa-45b4-abc0-056988e0b1ff",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Answer field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.answer).to.eql(\"My answer1\");\r",
+									"});\r",
+									"pm.test(\"Connection header\", function () {\r",
+									"    pm.response.to.have.header(\"Connection\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "5d9158c3-61bd-40f4-955e-a7e764bd3e9a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxNDc4MDc4LCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTM5MTY3OH0.gq394VKYvMMmffFEyL6hGoicQLbMSowXJtsPzuPm4b3Sux8uO4A2Dp-RC_n--pcnVvYJnqApC08BquTAn4VKQQ"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"{{text}}\",\r\n  \"answer\": \"{{answer}}\",\r\n  \"title\": \"{{title}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}tasks",
+							"host": [
+								"{{url}}tasks"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "1217668d-d46f-439e-96da-9ad5c5fd87a5"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxNjY3NjEyLCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTU4MTIxMn0.FGETarZKar1ze1uuggr4hgMxaMK0sTOmBJt8P4JEJk2_IQ8eU2nIST-tGYyBpdOyLJOZzf2IKQqV8MRLZcYzeA",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "269c351a-6b15-46db-b95d-7ac56d0e8526",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6e1f76b5-0320-42ec-af8d-ea704044724a",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "2a043c6b-ace2-456f-8feb-e311889aaab6",
+			"key": "id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "0d032520-a5e5-45c4-a418-151852e4ee65",
+			"key": "token",
+			"value": ""
+		}
+	]
+}
