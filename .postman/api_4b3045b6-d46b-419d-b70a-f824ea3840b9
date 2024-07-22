@@ -9,6 +9,8 @@ id = 4b3045b6-d46b-419d-b70a-f824ea3840b9
 
 [config.relations.collections]
 rootDirectory = postman/collections
+files[] = {"id":"18927542-6350b010-1f03-4bf5-ba7d-61c805172f42","path":"Curl,swagger.json","metaData":{}}
+files[] = {"id":"18927542-59fd8aa2-f3ba-473e-b522-221df42f9326","path":"HW-5.3.json","metaData":{}}
 files[] = {"id":"18927542-05bf309f-ba73-41f3-a272-d2acfbf64797","path":"Test design techniques.json","metaData":{}}
 
 [config.relations.collections.metaData]

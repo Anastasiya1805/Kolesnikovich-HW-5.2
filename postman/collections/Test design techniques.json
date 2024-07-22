@@ -265,6 +265,49 @@
 				}
 			],
 			"id": "1217668d-d46f-439e-96da-9ad5c5fd87a5"
+		},
+		{
+			"name": "Auth(Token)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8fdb27a6-0593-46a4-bf3f-2278327a1c6a",
+						"exec": [
+							"pm.test(\"Save token\", function () {\r",
+							"    let jsonBodyToken = pm.response.json();\r",
+							"    pm.collectionVariables.set(\"id_token\", jsonBodyToken.id_token);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "64d9fe5e-3663-4eef-bcfc-02cb0c760f1a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"{{usernameVerifierAdmin}}\",\"password\":\"{{passwordVerifierAdmin}}\",\"rememberMe\":false}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}authenticate",
+					"host": [
+						"{{url}}authenticate"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -272,7 +315,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxNjY3NjEyLCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTU4MTIxMn0.FGETarZKar1ze1uuggr4hgMxaMK0sTOmBJt8P4JEJk2_IQ8eU2nIST-tGYyBpdOyLJOZzf2IKQqV8MRLZcYzeA",
+				"value": "{{id_token}}",
 				"type": "string"
 			}
 		]
@@ -281,7 +324,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "269c351a-6b15-46db-b95d-7ac56d0e8526",
+				"id": "21a78a58-97a9-4492-abd3-9983fd761e19",
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
@@ -292,7 +335,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "6e1f76b5-0320-42ec-af8d-ea704044724a",
+				"id": "2d7019cd-7213-4261-b592-a5a4e73a5ca8",
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
@@ -303,15 +346,9 @@
 	],
 	"variable": [
 		{
-			"id": "2a043c6b-ace2-456f-8feb-e311889aaab6",
-			"key": "id",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"id": "0d032520-a5e5-45c4-a418-151852e4ee65",
-			"key": "token",
-			"value": ""
+			"id": "adf4d179-38bd-454d-9855-5ce8fc256484",
+			"key": "id_token",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxNzQ1NzAyLCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTY1OTMwMn0.4dipIaB-JHnuUsUzEtxO6pN7D1q56z28M66UINjLFTbLSgE0jt-uMXa97ildBRHLlfY21EJhxOIwNoRsLv2OCQ"
 		}
 	]
 }
