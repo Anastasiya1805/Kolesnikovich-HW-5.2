@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "a995f8e1-42a2-4878-a2e8-6a49d45ab27d",
+		"name": "HW-5.3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "18927542-a995f8e1-42a2-4878-a2e8-6a49d45ab27d"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0c085f77-241a-4565-9279-8ad4947e3a80",
+						"exec": [
+							"let jsonBodyToken = pm.response.json();\r",
+							"pm.collectionVariables.set(\"id_token\", jsonBodyToken.id_token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "333163ff-4e59-4654-9572-f3c153a88521",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "597cf820-afda-49a7-9d0e-cae27115558c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "https://sqlverifier-live-6e21ca0ed768.herokuapp.com"
+					},
+					{
+						"key": "Referer",
+						"value": "https://sqlverifier-live-6e21ca0ed768.herokuapp.com/login"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"126\", \"Google Chrome\";v=\"126\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"{{usernameVerifierAdmin}}\",\"password\":\"{{passwordVerifierAdmin}}\",\"rememberMe\":false}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}authenticate",
+					"host": [
+						"{{url}}authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create task",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "72fb9631-d351-407e-ad5f-b7ab8eb37f3f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a906195-ab3f-4981-b342-27e483195be7",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 190ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(190);\r",
+							"});\r",
+							"pm.test(\"Connection header\", function () {\r",
+							"    pm.response.to.have.header(\"Connection\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "a579b3f3-08ee-4d47-a1ff-20c5dd989a5d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxNjY3NjEyLCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTU4MTIxMn0.FGETarZKar1ze1uuggr4hgMxaMK0sTOmBJt8P4JEJk2_IQ8eU2nIST-tGYyBpdOyLJOZzf2IKQqV8MRLZcYzeA"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"{{text}}\",\r\n  \"answer\": \"{{answer}}\",\r\n  \"title\": \"{{title}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}tasks",
+					"host": [
+						"{{url}}tasks"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{id_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4debc09b-fad2-4c19-8578-bfd6c894d2f8",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "44cd119b-9171-4cd6-b706-518497a8d515",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "98acd2ba-0699-4300-b433-0a84e2267d59",
+			"key": "id_token",
+			"value": ""
+		},
+		{
+			"id": "fbc3d9f3-a39c-44e7-89e0-9d3393ceef70",
+			"key": "taskId",
+			"value": ""
+		}
+	]
+}

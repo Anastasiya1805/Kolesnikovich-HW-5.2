@@ -1,0 +1,510 @@
+{
+	"info": {
+		"_postman_id": "0c869548-553a-4845-91d8-d59a7f296132",
+		"name": "Curl,swagger",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "18927542-0c869548-553a-4845-91d8-d59a7f296132"
+	},
+	"item": [
+		{
+			"name": "HW-5.1",
+			"item": [
+				{
+					"name": "Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5a4ed4c4-ea53-479a-ac1c-d015d831c0af",
+								"exec": [
+									"let jsonBodyToken = pm.response.json();\r",
+									"pm.collectionVariables.set(\"id_token\", jsonBodyToken.id_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "9ed7a49d-1932-456c-a688-a8d0a2c45491",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"{{usernameVerifierAdmin}}\",\"password\":\"{{passwordVerifierAdmin}}\",\"rememberMe\":false}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}authenticate",
+							"host": [
+								"{{url}}authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "10206997-a96e-46f6-8bdd-899b327dc1c0",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Answer field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.answer).to.eql(\"My answer\");\r",
+									"});\r",
+									"pm.test(\"Connection header\", function () {\r",
+									"    pm.response.to.have.header(\"Connection\");\r",
+									"});\r",
+									"let jsonBodyID = pm.response.json();\r",
+									"pm.collectionVariables.set(\"id\", jsonBodyID.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fa8fee23-3f8a-499c-b023-f9621b89f213",
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "00bb3934-3a09-42ce-a7fd-142ef5401888",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxNjY3NjEyLCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTU4MTIxMn0.FGETarZKar1ze1uuggr4hgMxaMK0sTOmBJt8P4JEJk2_IQ8eU2nIST-tGYyBpdOyLJOZzf2IKQqV8MRLZcYzeA"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"Text\",\r\n  \"answer\": \"My answer\",\r\n  \"title\": \"Title\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}tasks",
+							"host": [
+								"{{url}}tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3c3f969d-9e5e-4629-8073-a146259ef437",
+								"exec": [
+									"pm.test(\"Successful GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 250ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(250);\r",
+									"});\r",
+									"pm.test(\"Cache-Control is present\", function () {\r",
+									"    pm.response.to.have.header(\"Cache-Control\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "62540960-2983-424c-b18e-33cca0e20537",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "c7cd49ee-1d0c-4c28-8d85-3cd1a8e484e5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxMzg3NjI0LCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTMwMTIyNH0.QSd7o04XCHkz-0aoziAelr71pbpwA-nPF8GFAsHBQVHxDpsoq9V7cztMKW3NJJ802NsGhbpNJ1VkNi6ItKw6ew"
+							}
+						],
+						"url": {
+							"raw": "{{url}}tasks?page=0&size=30",
+							"host": [
+								"{{url}}tasks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get personally task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d605295d-5a15-41c3-aac5-ad604193a693",
+								"exec": [
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Text field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.text).to.eql(\"Text\");\r",
+									"});\r",
+									"pm.test(\"Body matches 'answer'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"answer\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "37f530fe-21de-4df6-aad4-97f74fffca37",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "c6c7556c-8aa7-4955-9c8d-bd5aad9756bb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxMzg3NjI0LCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTMwMTIyNH0.QSd7o04XCHkz-0aoziAelr71pbpwA-nPF8GFAsHBQVHxDpsoq9V7cztMKW3NJJ802NsGhbpNJ1VkNi6ItKw6ew"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}tasks/{{id}}",
+							"host": [
+								"{{url}}tasks"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update some information",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "af3db3e5-9a96-4dbd-9680-0584bad45337",
+								"exec": [
+									"pm.test(\"Content-Type\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Title\");\r",
+									"});\r",
+									"pm.test(\"Answer\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.answer).to.eql(\"My answer\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "6081f09c-71cf-4d27-9672-fed3116dfeb3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxMzg3NjI0LCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTMwMTIyNH0.QSd7o04XCHkz-0aoziAelr71pbpwA-nPF8GFAsHBQVHxDpsoq9V7cztMKW3NJJ802NsGhbpNJ1VkNi6ItKw6ew"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{id}},\r\n  \"text\": \"Text3\",\r\n  \"answer\": \"My answer\",\r\n  \"title\": \"Title\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}tasks/{{id}}",
+							"host": [
+								"{{url}}tasks"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT all information",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "83b24b28-641c-4e25-a23c-069e6b69f572",
+								"exec": [
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 270ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(270);\r",
+									"});\r",
+									"pm.test(\"Response has title\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"title\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "70051571-5b17-4332-8a63-dcadfcb99733",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxMzg3NjI0LCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTMwMTIyNH0.QSd7o04XCHkz-0aoziAelr71pbpwA-nPF8GFAsHBQVHxDpsoq9V7cztMKW3NJJ802NsGhbpNJ1VkNi6ItKw6ew"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{id}},\r\n  \"text\": \"Text for me\",\r\n  \"answer\": \"No question\",\r\n  \"title\": \"Question\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}tasks/{{id}}",
+							"host": [
+								"{{url}}tasks"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0fff487b-3990-4aab-80c6-b2d3b0a7fb3a",
+								"exec": [
+									"pm.test(\"Response time is less than 250ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(250);\r",
+									"});\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "1fb7392a-7777-4d94-a358-fbac79f6382f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzIxMzg3NjI0LCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyMTMwMTIyNH0.QSd7o04XCHkz-0aoziAelr71pbpwA-nPF8GFAsHBQVHxDpsoq9V7cztMKW3NJJ802NsGhbpNJ1VkNi6ItKw6ew"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}tasks/{{id}}",
+							"host": [
+								"{{url}}tasks"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "7f1f840f-73f9-45fb-99ce-eb3af8f9b94a"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{id_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c47370a9-96d9-4ffe-9d4a-426d4671a34c",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8d2e3e9e-b193-4ff9-826c-f5048851f6a2",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "24043478-41cd-4553-87a3-3b645e8e59f4",
+			"key": "id_token",
+			"value": ""
+		},
+		{
+			"id": "45b518c3-a49b-4b77-84bc-ad89040d3598",
+			"key": "id",
+			"value": ""
+		}
+	]
+}
